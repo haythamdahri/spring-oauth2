@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<!-- Container -->
+    <div class="col-12" th:fragment="messages-part" th:if="${message != null}">
+        <div th:if="${isSuccess != null && isSuccess}" class="alert alert-success">
+            <i class="far fa-check-circle"></i> <th:block th:text="${message}" />
+        </div>
+        <div th:if="${isError != null && isError}" class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i> <th:block th:text="${message}" />
+        </div>
+        <div th:if="${isWarning != null && isWarning}" class="alert alert-warning">
+            <i class="fas fa-exclamation"></i> <th:block th:text="${message}" />
+        </div>
+        <div th:if="${isWarning == null && isSuccess == null && isError == null}" class="alert alert-warning">
+            <i class="fas fa-envelope"></i> <th:block th:text="${message}" />
+        </div>
+    </div>
+
+</body>
+</html>

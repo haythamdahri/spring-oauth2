@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<!-- Container -->
+<div class="container" layout:fragment="content">
+    <div class="col-12">
+        <div class="col-12 mx-auto mt-5 text-center">
+            <a th:href="@{/oauth/users/save/}">
+                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Add</button>
+            </a>
+        </div>
+
+        <hr/>
+
+        <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 mx-auto mt-5">
+            <table class="table" align="center">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col" colspan="2">Handle</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <th scope="row" th:text="${user.username}"></th>
+                    <td th:text="${user.firstName}">Otto</td>
+                    <td th:text="${user.lastName}">@mdo</td>
+                    <td>
+                        <a th:href="@{/oauth/users/save/{pathParam}(pathParam=${user.username})}"><i
+                                class="fas fa-user-edit"></i> Edit</a>
+                    </td>
+                    <td>
+                        <form method="post" onsubmit="deleteUser(event);" th:action="@{/oauth/users/delete}">
+                            <input type="hidden" name="username" th:value="${user.username}"/>
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(users)}">
+                    <td colspan="5">
+                        <div class="alert alert-warning text-center">
+                            <i class="fas fa-exclamation"></i> No users has been found!
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

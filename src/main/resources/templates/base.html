@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" th:href="@{/css/all.min.css}"/>
+
+    <!-- Sweetalert2 CSS -->
+    <link rel="stylesheet" th:href="@{/css/sweetalert2.min.css}"/>
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+    <!-- Title -->
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">OAUTH</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/oauth/users">OAUTH</a>
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler"
+            data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/oauth/users}"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" th:action="@{/oauth/users}">
+            <input aria-label="Search" class="form-control mr-sm-2" name="search" th:value="${param.search}" placeholder="Search" type="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<!-- Messages part -->
+<div class="container" th:insert="~{messages :: messages-part}">
+</div>
+
+<!-- Container -->
+<div class="container" layout:fragment="content"></div>
+
+<!-- Scripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/all.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/sweetalert2.all.min.js}"></script>
+<script th:src="@{/js/js.cookie.min.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+
+<div layout:fragment="js"></div>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<!-- Override navbar -->
+<div class="container" layout:fragment="navbar"></div>
+
+<!-- Container -->
+<div class="container" layout:fragment="content">
+    <div class="col-12">
+        <div class="col-12 mx-auto mt-5 text-center">
+            <div class="container unauthenticated">
+                With Facebook: <a href="/login">click here</a>
+            </div>
+            <div class="container authenticated">
+                Logged in as: <span id="user"></span>
+                <div>
+                    <button onClick="logout()" class="btn btn-primary">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="js">
+    <!-- Scripts -->
+    <script type="text/javascript">
+        // Setup cookies
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (settings.type == 'POST' || settings.type == 'PUT'
+                    || settings.type == 'DELETE') {
+                    if (!(/^http:.*/.test(settings.url) || /^https:.*/
+                        .test(settings.url))) {
+                        // Only send the token to relative URLs i.e. locally.
+                        xhr.setRequestHeader("X-XSRF-TOKEN",
+                            Cookies.get('XSRF-TOKEN'));
+                    }
+                }
+            }
+        });
+        // Retrieve connected user
+        $.get("/user", function (data) {
+            console.log(data);
+            $("#user").html(data.userAuthentication.details.name);
+            $(".unauthenticated").hide();
+            $(".authenticated").show();
+        });
+
+        // Logout
+        let logout = () => {
+            $.post("/logout", function () {
+                $("#user").html('');
+                $(".unauthenticated").show();
+                $(".authenticated").hide();
+            })
+            return true;
+        }
+
+    </script>
+</div>
+</body>
+</html>
